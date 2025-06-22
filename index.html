@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Header Fixed Layout</title>
+  <!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e801ba4ae7.js" crossorigin="anonymous"></script> 
+
+  <style>
+     * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      padding-top:140px; /* prevent top-bar covering content */
+    }
+
+    h1, h2, h3, h4, h5, h6, blockquote {
+  font-family: 'Crimson Text', serif;
+   }
+
+   p{
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color:rgb(2, 1, 1);
+  font-size: 17px;
+  line-height: 25px;
+   }
+
+  a{
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    font-weight: 400;
+    color:rgba(178, 164, 142,0.7);
+    font-size: 17px;
+    line-height: 25px;
+  }
+
+a:hover{
+ color:rgba(178, 164, 142,1);
+}
+
+
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10px;
+      transition: top 0.3s ease, opacity 0.3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      max-width: 100%;
+      background: #F5F4F5;
+      z-index: 998;
+    }
+
+    .top-bar .right {
+      margin-right: 20px; 
+    }
+    .top-bar.hidden {
+      top: -100px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .top-bar .left {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .top-bar a {
+      color: rgba(178, 164, 142,0.7);
+      text-decoration: none;
+      margin-right: 5px;
+    }
+
+    .top-bar a:hover{
+     color: rgba(178, 164, 142,1);
+    }
+
+
+    .top-bar .right button {
+      color: #fff;
+      border: none;
+      padding: 11px 20px;
+      margin-left: 40px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .top-bar,
+    .main-header {
+      width: 100%;
+    }
+
+
+    .main-header {
+      position: fixed;
+      /* top will be handled by JS */
+      width: 100%;
+      z-index: 997;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      background: white;
+      flex-wrap: wrap;
+      transition: top 0.3s ease;
+      top: 80px; /* default for first load */
+    }
+
+    .main-header-inner {
+      max-width: 1700px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+
+    .logo img {
+      height: 55px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .desktop-nav > div {
+      position: relative;
+    }
+
+    .desktop-nav a {
+      text-decoration: none;
+      color: #585757;
+      font-weight: 400;
+      padding: 10px;
+      font-family:'Lato', sans-serif;
+      font-size: 15px;
+      line-height: 20px;
+    }
+    
+   i {
+      font-family:'Lato', sans-serif;
+      font-size: 15px;
+      line-height: 20px;
+      color: #585757;
+      font-weight: 400;
+}
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 150%;
+      left: 0;
+      background: #C9BEA9;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .desktop-nav div:hover .dropdown {
+      display: block;
+    }
+
+    .dropdown a {
+      display: block;
+      white-space: nowrap;
+      padding: 18px 30px;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+    }
+
+
+    .dropdown a:hover{
+      background-color: #3F444B;
+    }
+
+
+
+    .icons {
+      display: none;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      width: 100%;
+    }
+
+    .mobile-nav a.main-link {
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-nav .submenu {
+      display: none;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .mobile-nav .submenu a {
+      display: block;
+      padding: 10px 0;
+      text-decoration: none;
+      color: #555;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .button-group {
+      display: flex;
+      width: 100%;
+    }
+
+    .button-group .action-btn {
+      flex: 1;
+      background: rgba(201, 190, 169, 1);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      padding: 15px 10px;
+      text-align: center;
+      white-space: nowrap;
+      box-sizing: border-box;
+      border-right: 1px solid white;
+    }
+
+    .button-group .action-btn:last-child {
+      border-right: none;
+    }
+
+.button-d{
+   background: rgba(201, 190, 169, 0.7);
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 15px;
+   font-family: 'Lato', sans-serif;
+}
+.button-d:hover{
+  background: rgba(201, 190, 169, 1);
+}
+
+.submenu-left {
+  position: absolute;
+  top: 0;
+  left: -180px; /* adjust based on width */
+  background: #C9BEA9;
+  display: none;
+  min-width: 180px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 15;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.desktop-nav .dropdown a:hover + .submenu-left,
+.submenu-left:hover {
+  display: block;
+}
+
+
+
+
+
+.dropdown a i.fas.liko.fa-chevron-right {
+  font-size: 0.75rem;
+  margin-left: 6px;
+  transition: transform 0.3s;
+  color: #fff;
+}
+.e-des{
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 25px;
+  color: #585757;
+}
+
+.e-main{
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 25px;
+  color: rgba(178, 164, 142,0.7);
+  cursor: pointer;
+}
+.e-main:hover{
+color: rgba(178, 164, 142,1);
+}
+
+
+
+    @media (min-width: 769px) {
+      .button-group {
+        justify-content: flex-end;
+        width: auto;
+      }
+
+      .button-group .action-btn {
+        width: auto;
+        padding: 10px 15px;
+        border-right: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .button-group {
+        justify-content: center;
+      }
+      .top-bar .left {
+        display: none;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+
+      .icons {
+        display: flex!important;
+      }
+      .main-header-inner{
+         width: 80%;
+      }
+      .mobile-nav{
+        margin-top: 180px;
+
+      }
+
+      .sidebar{
+        display: none;
+      }
+      
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none !important;
+      }
+    }
+
+
+    
+/* main body */
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0 15px;
+  gap: 50px; 
+}
+.main-content {
+  flex: 2;
+  min-width: 0;
+    margin-top: 100px;
+}
+
+.sidebar {
+  flex: 0 0 300px; /* fixed width */
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 100px;
+}
+
+.side-headline{
+  font-size: 42px;
+  line-height: 42px;
+  font-weight: 400;
+  color: rgb(118, 113, 124);
+}
+.main-heading {
+  font-family: 'Crimson Text', serif;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 60px;
+  color: rgb(118, 113, 124);
+  margin-bottom: 10px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  font-family: 'Lato', sans-serif;
+  line-height: 25px;
+}
+.post-meta a{
+  text-decoration: none;
+  color: rgba(201, 190, 169, 0.7);
+}
+.post-meta a:hover{
+   color: rgba(201, 190, 169, 1);
+}
+.post-meta i:hover{
+  color: rgba(201, 190, 169, 1);
+}
+
+.post-meta i {
+  margin-right: 5px;
+  color: rgba(201, 190, 169, 0.7);
+}
+.post-meta .dif-coler i {
+  color: #020101;
+}
+.featured-image {
+  width: 100%;
+  height: auto;
+  margin: 30px 0;
+}
+
+.location {
+  font-size: 17px;
+  color: rgb(178, 164, 142);
+  font-family: 'Lato', sans-serif;
+  line-height: 25px;
+  font-weight: 400;
+}
+.location a{
+  text-decoration: none;
+  color: rgba(178, 164, 142,0.7);
+}
+.location a i{
+  color: rgba(178, 164, 142,0.7);
+}
+
+.location a i:hover{
+  color: rgba(178, 164, 142,1);
+}
+.location a:hover{
+  color: rgba(178, 164, 142,1);
+}
+.sub-heading {
+  font-family: 'Crimson Text', serif;
+  font-size: 48px;
+  font-weight: 400;
+  color:rgb(118, 113, 124);
+  margin-top: 30px;
+  line-height: 48px;
+}
+
+.section-heading {
+  font-family: 'Crimson Text', serif;
+  font-size: 42px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 42px;
+  color: rgb(118, 113, 124);
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.info-table th,
+.info-table td {
+  padding: 14px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.info-table thead {
+  background: #f0f0f0;
+}
+
+.info-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.heart{
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 25px;
+  color: rgb(178, 164, 142);
+}
+
+.register-btn {
+  background-color: rgba(201, 190, 169, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  font-weight: 400;
+  margin: 0 auto 20px auto;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 16px;
+  display: block;
+}
+
+.register-btn:hover {
+   background-color: rgba(201, 190, 169, 1); 
+}
+
+
+.register-btn a{
+  color: #fff;
+}
+
+.whats{
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  line-height: 18px;
+  color: rgb(2, 1, 1);
+  font-weight: 600;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}
+.widget {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.widget a{
+  color:rgb(2, 1, 1);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 25px;
+}
+.widget a:hover{
+  text-decoration: underline;
+}
+.widget h5 {
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.widget img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.widget ol {
+  padding-left: 20px;
+  margin: 10px 0 0 0;
+}
+
+.widget ol li {
+  margin-bottom: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    padding-left: 0;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .content-wrapper {
+    flex-direction: column;
+    padding: 0 15px;
+  }
+}
+
+
+
+
+
+
+ /* Too Cheap  */
+
+     .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      text-align: left;
+      padding: 14px 16px;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .pricing-table thead th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      border-top: none;
+    }
+
+    .pricing-table tr:first-child td {
+      border-top: none;
+    }
+
+    .highlight {
+      color: rgba(178, 164, 142, 1); /* Same as the blue "UK" in image */
+      font-weight: 500;
+    }
+
+
+    /* question */
+
+    .q-men{
+      font-family: 'Lato', sans-serif;
+      font-size: 17px;
+      line-height: 25px;
+      color:rgb(2, 1, 1);
+      font-weight: 400;
+      margin: 10px;
+    }
+
+    .q-men li{
+      padding: 10px;
+    }
+
+/* final takway */
+
+.custom-container {
+      width: 100%;
+      text-align: left;
+      padding: 20px;
+    }
+
+    .custom-btn-link {
+      display: inline-block;
+      background-color: rgba(178, 164, 142, 0.7);
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      font-family: 'Lato', sans-serif;
+      line-height: 16px;
+    }
+
+    .custom-btn-link:hover {
+      background-color: rgba(178, 164, 142, 1);
+      color: #fff;
+    }
+
+
+   /* consaltation section */
+
+   .consultation-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .left-image {
+      flex: 0.5;
+      min-height: 400px;
+      background: url('../image/science-behind-smiling.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .right-content {
+      flex: 1;
+      background-color:#76717C; 
+      color: white;
+      padding: 50px 40px;
+    }
+
+    .right-content h2 {
+      font-size: 48px;
+      line-height: 48px;
+      margin-bottom: 30px;
+      font-weight: 400;
+      font-family: 'Crimson Text', serif;
+      color: #fff;
+    }
+
+    .form-inline {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .form-inline div {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    label {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 5px;
+      display: block;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+    }
+
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+
+    .submit-btn {
+      background-color: rgba(5, 85, 137, 0.7);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 17px;
+      line-height: 17px;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      font-weight: 500;
+    }
+
+    .submit-btn:hover {
+      background-color: rgba(5, 85, 137, 1);
+    }
+
+   
+
+    .note {
+      margin-top: 10px;
+      font-size: 17px;
+      color: #e0e0e0;
+      max-width: 600px;
+      line-height: 25px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .consultation-wrapper {
+        flex-direction: column;
+      }
+
+      .right-content {
+        padding: 30px 20px;
+      }
+
+      .form-inline {
+        flex-direction: column;
+      }
+
+      .form-inline div {
+        width: 100%;
+      }
+    }
+
+    /* slider section */
+   .logo-carousel {
+  max-width: 1300px;
+  margin: 40px auto;
+}
+
+.logo-carousel .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-carousel img {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo-carousel img:hover {
+  transform: scale(1.05);
+}
+
+
+/* footer section */
+
+    .footer {
+      background-color: #F5F4F5;
+      padding: 50px 20px;
+    }
+
+    .footer-container {
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-box {
+      flex: 1 1 250px;
+    }
+
+    .footer-box h3 {
+      font-size: 26px;
+      line-height: 39px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: rgb(118, 113, 124);
+      font-family: 'Lato', sans-serif;
+    }
+
+    .footer-box p, .footer-box a {
+      color: rgb(88, 87, 87);
+      font-size: 16px;
+      line-height: 1.6;
+      text-decoration: none;
+    }
+
+    .footer-box a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      margin-top: 15px;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      margin: 0 5px;
+      background-color: rgba(178, 164, 142, 0.7);
+      color: white;
+      text-align: center;
+      line-height: 35px;
+    }
+
+    .social-icons a:hover{
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      margin: 0 5px;
+      background-color: rgba(178, 164, 142, 1);
+      color: white;
+      text-align: center;
+      line-height: 35px;
+    }
+
+    .social-icons i{
+       color: #fff;
+      }
+    
+    .footer-bottom p {
+      font-family: 'Lato', sans-serif;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 12px;
+      line-height: 25px;
+      color: rgb(88, 87, 87);
+      margin-top: 50px;
+    }
+
+.footer-bottom p > a {
+      font-family: 'Lato', sans-serif;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 12px;
+      line-height: 25px;
+      color: rgb(88, 87, 87);
+    }
+
+
+
+    .search-box {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .search-box button {
+      background-color: #B2A48E;
+      border: none;
+      padding: 15px 10px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .cqc-box {
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 20px;
+    }
+
+    .cqc-box img {
+      max-width: 120px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .cqc-box p {
+      margin: 10px 0;
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    .cqc-box .highlight-purple {
+      color: rgb(108, 39, 106);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 15px;
+    }
+
+  .cqc-box .tick-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .cqc-box .highlight-green {
+      color: rgb(94, 160, 0);
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    .cqc-box .cqc-button {
+      display: inline-block;
+      background: #5cb712;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    .cqc-a a:hover{
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-bottom p {
+      margin-top: -40px;
+    }
+    }
+
+/* scroll-top */
+     #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      background-color: #B2A48E;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      font-size: 18px;
+    }
+    #scrollTopBtn i{
+      color: #fff;
+     }
+
+     /* whatapps */
+
+    .whatsapp-button {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 1000;
+    text-decoration: none;
+  }
+
+.whatsapp-button i{
+  font-size: 30px;
+  color: #fff;
+}
+
+  .whatsapp-button:hover {
+    background-color: #1ebe5d;
+  }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Top Contact Bar -->
+   
+ <div class="top-bar">
+    <div class="left">
+      <strong class="e-des">Email:</strong> <a class="e-main"  href="mailto:care@theperfectsmile.co.uk">care@theperfectsmile.co.uk</a> |
+      <strong class="e-des">Tel:</strong> <span class="e-main">01992 552115</span>
+    </div>
+    <div class="right button-group">
+      <button class="button-d">FREE CONSULTATION</button>
+      <button class="button-d">REQUEST APPOINTMENT</button>
+    </div>
+  </div>
+
+ 
+  <!-- Main Header -->
+<div class="main-header">
+  <div class="main-header-inner">
+    <div class="logo">
+      <img src="image/pss-logo-dark.svg" alt="Logo" />
+    </div>
+
+    <nav class="desktop-nav">
+      <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/cosmetic-dentistry">Cosmetic Dentistry</a><i class="fas liko fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/tooth-whitening">Teeth Whitening</a>
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry/tooth-contouring">Tooth Contouring</a>
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry/smile-makeover">Smile Makeover</a>
+        </div>
+      </div>
+      <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/veneers">Veneers</a><i class="fas liko fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/veneers/porcelain-veneers/ultrathin-veneers">Ultra Thin</a>
+          <a href="https://www.theperfectsmile.co.uk/veneers/porcelain-veneers">Porcelain Veneers</a>
+          <a href="https://www.theperfectsmile.co.uk/veneers/composite-veneers">Composite Veneers</a>
+          <a href="https://www.theperfectsmile.co.uk/veneers/no-prep-veneers">No Prep Veneers</a>
+          <a href="https://www.theperfectsmile.co.uk/veneers/before-after">Before & After</a>
+          <a href="https://www.theperfectsmile.co.uk/veneers/cost-of-veneers">Costs</a>
+        </div>
+      </div>
+      <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/cosmetic-braces">Orthodontics</a><i class="fas liko fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/invisalign">Invisalign</a>
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/cfast">CFast</a>
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/adult-6-month-treatment">6-Month Smiles</a>
+          <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/ceramic-braces">Ceramic Braces</a>
+        </div>
+      </div>
+      <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/implant-dentistry">Dental Implants</a><i class="fas liko fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/implant-dentistry/single-implants">Single Implants</a>
+          <a href="https://www.theperfectsmile.co.uk/implant-dentistry/multiple-implants">Multiple Implants</a>
+          <a href="https://www.theperfectsmile.co.uk/implant-dentistry/all-on-four-implants">All on 4 – Teeth in a Day</a>
+          <a href="https://www.theperfectsmile.co.uk/implant-dentistry/implant-retained-dentures">Implant Dentures</a>
+          <a href="https://www.theperfectsmile.co.uk/implant-dentistry/cost-of-implants">Costs</a>
+          
+        </div>
+      </div>
+
+       <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/general-dentistry">General</a>
+        </div>
+
+       <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/portfolio-testimonials">Smile Gallery</a>
+      </div>
+
+       <div>
+        <a style="text-transform: uppercase;" href="#">Costs & Finance</a><i class="fas fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/about-us/our-treatment-fees">Fees</a>
+          <a href="https://www.theperfectsmile.co.uk/dental-finance">Dental Finance</a>
+          <a href="https://www.theperfectsmile.co.uk/apply-for-dental-finance">Apply For Dental Finance</a>
+        </div>
+      </div>
+
+       <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/about-us">About</a><i class="fas liko fa-chevron-down"></i>
+        <div class="dropdown">
+          <a href="https://www.theperfectsmile.co.uk/innovation/practice-tour">Practice Gallery</a>
+          <a href="https://www.theperfectsmile.co.uk/about-us/commitment">Patient Commitment</a>
+          <a href="https://www.theperfectsmile.co.uk/about-us/commitment/values">Our Values</a>
+          <a href="https://www.theperfectsmile.co.uk/portfolio-testimonials#reviews">Reviews</a>
+          <a href="https://www.theperfectsmile.co.uk/about-us/dental-team">Team <i class="fas liko fa-chevron-right"></i> </a>
+           <ul class="submenu-left">
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/sam-jethwa">Dr Sam Jethwa</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/gurs-sehmi">Dr Gurs Sehmi</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/sagar-shah">Dr Sagar Shah</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/nikolas-vourakis">Dr Nikolas Vourakis</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/david-bloom">Dr David Bloom</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/biju-krishan">Dr Biju Krishan</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/negin-mosahebi">Dr Negin Mosahebi</a>
+              <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/lauren-clark">Dr Lauren Clark</a>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <a style="text-transform: uppercase;" href="https://www.theperfectsmile.co.uk/contact-us">Contact</a>
+      </div>
+    </nav>
+
+    <div class="icons">
+      <i class="fas fa-phone"></i>
+      <i class="fas fa-envelope"></i>
+      <i class="fas fa-bars" id="menu-toggle"></i>
+    </div>
+    </div>
+  </div>
+ 
+  
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+  <div style="display: flex; justify-content: flex-end; padding: 10px 20px;">
+    <i class="fas fa-times" id="menu-close" style="font-size: 20px; cursor: pointer;"></i>
+  </div>
+
+  <!-- Existing Menus -->
+  <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry" class="main-link" onclick="toggleSubmenu(event, 'sub1')">Cosmetic Dentistry <i class="fas fa-chevron-down"></i></a>
+  <div class="submenu" id="sub1">
+    <a href="https://www.theperfectsmile.co.uk/tooth-whitening">Teeth Whitening</a>
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry/tooth-contouring">Tooth Contouring</a>
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry/smile-makeover">Smile Makeover</a>
+  </div>
+
+  <a href="https://www.theperfectsmile.co.uk/veneers" class="main-link" onclick="toggleSubmenu(event, 'sub2')">Veneers <i class="fas fa-chevron-down"></i></a>
+  <div class="submenu" id="sub2">
+    <a href="https://www.theperfectsmile.co.uk/veneers/porcelain-veneers/ultrathin-veneers">Ultra Thin</a>
+    <a href="https://www.theperfectsmile.co.uk/veneers/porcelain-veneers">Porcelain Veneers</a>
+    <a href="https://www.theperfectsmile.co.uk/veneers/composite-veneers">Composite Veneers</a>
+    <a href="https://www.theperfectsmile.co.uk/veneers/no-prep-veneers">No Prep Veneers</a>
+    <a href="https://www.theperfectsmile.co.uk/veneers/before-after">Before & After</a>
+    <a href="https://www.theperfectsmile.co.uk/veneers/cost-of-veneers">Costs</a>
+  </div>
+
+  <a href="https://www.theperfectsmile.co.uk/cosmetic-braces" class="main-link" onclick="toggleSubmenu(event, 'sub3')">Orthodontics<i class="fas fa-chevron-down"></i></a>
+  <div class="submenu" id="sub3">
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/invisalign">Invisalign</a>
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/cfast">CFast</a>
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/adult-6-month-treatment">6-Month Smiles</a>
+    <a href="https://www.theperfectsmile.co.uk/cosmetic-braces/ceramic-braces">Ceramic Braces</a>
+  </div>
+
+  <a href="https://www.theperfectsmile.co.uk/implant-dentistry" class="main-link" onclick="toggleSubmenu(event, 'sub4')">Dental Implants<i class="fas fa-chevron-down"></i></a>
+  <div class="submenu" id="sub4">
+    <a href="https://www.theperfectsmile.co.uk/implant-dentistry/single-implants">Single Implants</a>
+    <a href="https://www.theperfectsmile.co.uk/implant-dentistry/multiple-implants">Multiple Implants</a>
+    <a href="https://www.theperfectsmile.co.uk/implant-dentistry/all-on-four-implants">All on 4 – Teeth in a Day</a>
+    <a href="https://www.theperfectsmile.co.uk/implant-dentistry/implant-retained-dentures">Implant Dentures</a>
+    <a href="https://www.theperfectsmile.co.uk/implant-dentistry/cost-of-implants">Costs</a>
+  </div>
+
+  <a href="https://www.theperfectsmile.co.uk/general-dentistry" class="main-link" onclick="toggleSubmenu(event, 'sub5')">General</a>
+  
+  <a href="https://www.theperfectsmile.co.uk/portfolio-testimonials" class="main-link" onclick="toggleSubmenu(event, 'sub6')">Smile Gallery</a>
+  
+  <a href="#" class="main-link" onclick="toggleSubmenu(event, 'sub7')">Costs & Finance<i class="fas fa-chevron-down"></i></a>
+  <div class="submenu" id="sub7">
+          <a href="https://www.theperfectsmile.co.uk/about-us/our-treatment-fees">Fees</a>
+          <a href="https://www.theperfectsmile.co.uk/dental-finance">Dental Finance</a>
+          <a href="https://www.theperfectsmile.co.uk/apply-for-dental-finance">Apply For Dental Finance</a>
+  </div>
+
+       <a href="https://www.theperfectsmile.co.uk/about-us" class="main-link" onclick="toggleSubmenu(event, 'sub8')">About <i class="fas fa-chevron-down"></i></a>
+<div class="submenu" id="sub8">
+  <a href="https://www.theperfectsmile.co.uk/innovation/practice-tour">Practice Gallery</a>
+  <a href="https://www.theperfectsmile.co.uk/about-us/commitment">Patient Commitment</a>
+  <a href="https://www.theperfectsmile.co.uk/about-us/commitment/values">Our Values</a>
+  <a href="https://www.theperfectsmile.co.uk/portfolio-testimonials#reviews">Reviews</a>
+  
+  <!-- ✅ Team Submenu Toggle -->
+  <a href="#" onclick="toggleTeamSubmenu(event)" class="main-link">Team <i class="fas fa-chevron-right"></i></a>
+  <div class="submenu1" id="teamSubmenu1">
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/sam-jethwa">Dr Sam Jethwa</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/gurs-sehmi">Dr Gurs Sehmi</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/sagar-shah">Dr Sagar Shah</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/nikolas-vourakis">Dr Nikolas Vourakis</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/david-bloom">Dr David Bloom</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/biju-krishan">Dr Biju Krishan</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/negin-mosahebi">Dr Negin Mosahebi</a>
+    <a href="https://www.theperfectsmile.co.uk/about-us/dental-team/lauren-clark">Dr Lauren Clark</a>
+  </div>
+</div>
+
+
+  <a href="https://www.theperfectsmile.co.uk/contact-us" class="main-link" onclick="toggleSubmenu(event, 'sub9')">Contact</a>
+  
+  <!-- Close container -->
+  <div></div>
+</div>
+
+</header>
+
+<!-- Main section start-->
+
+<section class="content-wrapper">
+
+  <!-- LEFT COLUMN -->
+  <div class="main-content">
+
+    <h1 class="main-heading">
+      The 5 Veneer Red Flags No One Talks About
+    </h1>
+
+    <div class="post-meta">
+      <div> <a href="https://www.theperfectsmile.co.uk/news/author/benedict-sykes"><i class="far fa-user-circle"></i> Dr Doshi </a></div>
+      <span>|</span>
+      <div> <a href="https://www.theperfectsmile.co.uk/news/2025/06/15"><i class="fas fa-calendar"></i>June 15, 2025 </a></div>
+      <span>|</span>
+      <div class="dif-coler"> <a href="https://www.theperfectsmile.co.uk/category/veneers"><i class="fas fa-tags"></i>Veneers</a></div>
+    </div>
+
+    <img src="image/photos-of-our-veneer-dentist.jpg" alt="Smile Patient" class="featured-image" />
+
+    <p class="location">
+      <a href="https://maps.app.goo.gl/nDTyYh5tmMxiUNDZ9"><i class="fas fa-map-marker-alt"></i> Perfect Smile Studio, South St, Hertford, Hertfordshire, SG14 1AZ</a>
+    </p>
+
+    <h2 class="sub-heading">What I Wish I Knew About Veneers</h2>
+    
+    <p>So you’re thinking about veneers? Maybe you’ve already had a <a href="https://www.theperfectsmile.co.uk/contact-us">consultation</a>,
+      or you’ve watched enough <a href="https://www.theperfectsmile.co.uk/cosmetic-dentistry/smile-makeover">smile makeover</a> content to know what you don’t want,
+      but the more you research, the more confusing it gets.</p>
+
+    <p>That’s because the veneer industry is full of <a href="https://www.theperfectsmile.co.uk/veneers/before-after">flawless before-and-afters</a>...
+      and very little honesty about what can go wrong.</p>
+
+    <p>As someone who’s had veneers (and did a lot of research beforehand), here are five red flags I wish more people talked about — and how to protect yourself from them.</p>
+
+    <img src="image/veneers-vs-crown.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">1. Aggressive Tooth Filing</h3>
+
+    <p>You’ve probably seen the “<em>shark teeth</em>” trend online, where natural teeth are filed down to tiny pegs before veneers or crowns are applied. Here’s the issue: that’s not how veneers should be done.</p>
+
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Tooth Prep Type</th>
+          <th>What It Means</th>
+          <th>Safe for Veneers?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Minimal prep</td>
+          <td>Only a thin layer of enamel removed</td>
+          <td>Yes – industry standard</td>
+        </tr>
+        <tr>
+          <td>Aggressive prep</td>
+          <td>Tooth filed down to a stub; irreversible</td>
+          <td>No – unless medically necessary</td>
+        </tr>
+        <tr>
+          <td>“Turkey teeth” prep</td>
+          <td>Extreme filing for speed/convenience abroad</td>
+          <td>High risk of nerve damage</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>If your dentist is suggesting extensive filing for purely cosmetic veneers, walk away.
+      <a href="https://www.theperfectsmile.co.uk/news/veneers-vs-crowns">Learn more</a>
+    </p>
+
+
+     <!-- on size -->
+    <div>
+      <img src="image/before-and-after-dental-veneers.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">2. One-Size-Fits-All Smiles</h3>
+
+    <p>A good veneer case is personalised, not based on a default “ <a href="https://www.theperfectsmile.co.uk/news/hollywood-smile-the-new-social-status-marker">Hollywood smile.</a>” Your face shape, skin tone, bite, and even your speech patterns all influence how your smile should be designed.</p>
+
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Design Approach</th>
+          <th>What to Expect</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Custom smile design</td>
+          <td>Digital mock-ups, facial scans, shade selection</td>
+          <td>Natural, face-fitting result</td>
+        </tr>
+        <tr>
+          <td>Copy-paste smile</td>
+          <td>Same 8 veneers on every patient</td>
+          <td>Flat, artificial, or generic</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>If the dentist doesn’t ask about what you want — or doesn’t offer mock-ups or try-ins — they’re not tailoring the result to your face.
+    </p>
+
+     </div>
+ 
+<!-- Too Cheap -->
+
+<div>
+      <img src="image/how-much-for-a-full-mouth-of-veneers.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">3. Too Cheap to Be True</h3>
+
+    <p>Porcelain veneers are a premium treatment, not a bargain buy. If a clinic is offering <a href="https://www.theperfectsmile.co.uk/news/full-set-of-veneer-cost">complete set at a suspiciously low price</a>, ask yourself: what’s being compromised?</p>
+
+    <table class="pricing-table">
+    <thead>
+      <tr>
+        <th>Veneer Price (Per Tooth)</th>
+        <th>What It Usually Means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Under £300</td>
+        <td>Likely composite or overseas lab with no follow-up</td>
+      </tr>
+      <tr>
+        <td>£500–£900</td>
+        <td>Composite in <span class="highlight">UK</span> — less durable, quicker application</td>
+      </tr>
+      <tr>
+        <td>£1,000–£1,200+</td>
+        <td>High-grade porcelain, custom lab work, <span class="highlight">UK</span>-registered dentist</td>
+      </tr>
+    </tbody>
+  </table>
+
+    <p>It’s not just the material — it’s the technique, lab quality, bite adjustment, and long-term care that count.
+    </p>
+
+     </div>
+
+
+
+     <!-- No Mention -->
+
+<div>
+      <img src="image/after-veneers-looking-in-mirror.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">4. No Mention of Aftercare</h3>
+
+    <p> <a href="">Veneers need maintenance</a>. They don’t get cavities, but the teeth beneath them can — and without follow-up hygiene, even the most beautiful set will fail over time. </p>
+
+    <table class="pricing-table">
+    <thead>
+      <tr>
+        <th>Aftercare You Should Expect</th>
+        <th>Why It Matters</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hygiene clean every 3–6 months</td>
+        <td>Keeps gums healthy and prevents hidden plaque build-up</td>
+      </tr>
+      <tr>
+        <td>Night guard (if you grind)</td>
+        <td>Prevents cracks, chips, or premature wear</td>
+      </tr>
+      <tr>
+        <td>Bite checks after fitting</td>
+        <td>Ensures comfort and long-term functionality</td>
+      </tr>
+    </tbody>
+  </table>
+
+    <p>If the clinic emphasises the speed or ease of the procedure but fails to mention long-term care, be cautious.
+    </p>
+
+     </div>
+
+<!-- Questions -->
+
+<div>
+      <img src="image/dentist-image.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">5. No Questions Asked</h3>
+
+    <p>A reputable dentist will ask about your lifestyle, habits, goals, and fears before offering treatment. If they don’t ask about things like: </p>
+
+    <ul class="q-men">
+      <li>Your bite and how you chew</li>
+      <li>Whether you grind your teeth</li>
+      <li>What kind of result you hope for</li>
+      <li>Your expectations or budget</li>
+    </ul>
+    <p>…then they’re not building a treatment plan around you — just selling a product.</p>
+    <table class="pricing-table">
+    <thead>
+      <tr>
+        <th>What They Should Ask</th>
+        <th>Why It’s Important</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Do you grind or clench your teeth?</td>
+        <td>May affect material choice or require a guard</td>
+      </tr>
+      <tr>
+        <td>Do you want a natural or enhanced look?</td>
+        <td>	Affects shape, shade, and finish</td>
+      </tr>
+      <tr>
+        <td>How do you feel about your current smile?</td>
+        <td>Helps guide emotional goals and desired outcome</td>
+      </tr>
+    </tbody>
+  </table>
+     </div>
+
+  <!-- Final takeaway -->
+
+<div>
+      <img src="image/PSS-Reception.jpg" alt="Veneer vs Crown" class="featured-image" />
+
+    <h3 class="section-heading">Final takeaway</h3>
+
+    <p>Veneers can be life-changing — but only if done safely, ethically, and with your long-term wellbeing in mind. </p>
+    <p>Look for a clinic that:</p>
+
+    <ul class="q-men">
+      <li>Doesn’t rush your decision</li>
+      <li>Offers you a trial smile or design preview</li>
+      <li>Talks about bite, speech, and maintenance</li>
+      <li>Respects your face, not just your wallet</li>
+    </ul>
+    <br>
+    <p>A real smile transformation isn’t fast or flashy. It’s thoughtful. It’s tailored. And it’s done with care. Our cosmetic dentists know that all too well.</p>
+    
+     <div class="custom-container">
+    <a class="custom-btn-link" href="https://www.theperfectsmile.co.uk/new-patient-registrations" target="_blank">
+      NEW PATIENT REGISTRATION
+    </a>
+  </div>
+
+     </div>
+
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar">
+
+    <h4 class="side-headline">The Perfect Smile Studio</h4>
+    <p>79 South Street, <span class="heart">Hertford,<br> Hertfordshire, SG14 1AZ</span> </p>
+
+    <button class="register-btn"><a href="https://www.theperfectsmile.co.uk/new-patient-registrations">NEW PATIENT REGISTRATION</a></button>
+
+    <div class="widget">
+      <strong class="whats">What’s Here...</strong>
+      <ol>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-0">Aggressive Tooth Filing</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-1">One Size-Fits All Smiles</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-2">Too Cheap to Be True</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-3">No Mention of Aftercare</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-4">No Questions Asked</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-5">Fake Takeaway</a> </li>
+        <li> <a href="https://www.theperfectsmile.co.uk/news/the-5-veneer-red-flags-no-one-talks-about#elementor-toc__heading-anchor-6">The Perfect Smile Studio</a></li>
+      </ol>
+    </div>
+
+    <div class="widget">
+      <iframe src="https://www.google.com/maps?q=Perfect+Smile+Studio,+Hertford,+UK&output=embed" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <div class="widget"><a href="https://www.theperfectsmile.co.uk/general-dentistry/dental-hygiene"> <img src="image/hygienist-price-1024x1024.jpg" alt="Hygienist Offer" /></a>
+     
+    </div>
+
+    <div class="widget"><a href="https://www.theperfectsmile.co.uk/new-patient-registrations"><img src="image/new-patient-10-off-offer.jpg" alt="Checkup Discount" /></a>
+      
+    </div>
+
+  </aside>
+</section>
+<!-- Main section end-->
+
+<!-- Telephone Consultation​​ section -->
+
+ <section class="consultation-wrapper">
+    <div class="left-image"></div>
+    <div class="right-content">
+      <h2>Start With A Free Telephone Consultation</h2>
+      <form>
+        <div class="form-inline">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+          </div>
+          <div>
+            <label for="phone">Telephone</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">SUBMIT</button>
+      </form>
+      <p class="location">
+      <a href="https://maps.app.goo.gl/nDTyYh5tmMxiUNDZ9"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Perfect Smile Studio, South St, Hertford, Hertfordshire, SG14 1AZ</a>
+    </p>
+      <p class="note">
+        Our free, no-obligation telephone consultation will be held with our treatment coordinators. The suitability of the options discussed will depend upon your clinical assessment at the practice.
+      </p>
+    </div>
+  </section>
+
+<!-- slider section -->
+
+<div class="logo-carousel owl-carousel">
+  <div class="item"><img src="image/slider-imag/aviva-insurance.jpg" alt="AXA" /></div>
+  <div class="item"><img src="image/slider-imag/axa-insurance.jpg" alt="WPA" /></div>
+  <div class="item"><img src="image/slider-imag/bupa-insurance.jpg" alt="Vitality" /></div>
+  <div class="item"><img src="image/slider-imag/cigna-insurance.jpg" alt="Bupa" /></div>
+  <div class="item"><img src="image/slider-imag/vitality-insurance.jpg" alt="Aviva" /></div>
+  <div class="item"><img src="image/slider-imag/wpa-insurance.jpg" alt="Cigna" /></div>
+</div>
+
+
+<!-- footer section -->
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- CQC Report Box -->
+    <div class="footer-box">
+      <div class="cqc-box">
+        <img src="image/asset_cqclogo_update.png" alt="CQC Logo">
+        <p>CQC regulates Dentex Clinical Limited to provide care at <strong>The Perfect Smile Studios</strong>.</p>
+        <p class="highlight-purple">Our last check showed</p>
+          <div class="tick-line">
+          <img src="image/cqc-widget-tick.png" alt="">
+          <p class="highlight-green">This service was meeting all CQC national standards</p>
+        </div>
+        <div class="cqc-a">
+             <a href="https://www.cqc.org.uk/location/1-17429712314?referer=widget4" class="cqc-button">See the report on CQC's website</a>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-box">
+      <h3>Perfect Smile Studio</h3>
+      <p>7/9 South Street, Hertford,<br>Hertfordshire, SG14 1AZ</p>
+      <p><strong>Tel:</strong> 01992 552115</p>
+      <p><strong>Email:</strong> care@theperfectsmile.co.uk</p>
+    </div>
+
+    <!-- Opening Hours -->
+    <div class="footer-box">
+      <h3>Opening Hours</h3>
+      <p>Monday to Friday<br>8.30am – 6.00pm</p>
+      <p>Late Evening & Saturday Appointments</p>
+      <div class="search-box">
+        <input type="text" placeholder="Search...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <a href="#">About Us</a><br>
+      <a href="#">Our Mission</a><br>
+      <a href="#">Meet the Team</a><br>
+      <a href="#">Membership Plan</a><br>
+      <a href="#">Free Oral Health Guide</a><br>
+      <a href="#">Blog</a><br>
+      <a href="#">* FCA/ Terms and Conditions</a>
+    </div>
+  </div>
+
+  <!-- Social Media -->
+  <div class="footer-container" style="margin-top: 40px;">
+    <div class="footer-box">
+      <h3>Connect With Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 The Perfect Smile Studios Limited. Registered in England and Wales.with Company Number 04682360.| <a href="https://www.gdc-uk.org/">General Dental Council</a>  |<a href="https://www.cqc.org.uk/provider/1-171570611">Care Quality Commission CQC</a>  |<a href="https://www.theperfectsmile.co.uk/about-us/complaints-procedure"> Complaints Procedure </a> |<br> <a href="https://www.theperfectsmile.co.uk/cookies">Cookie Policy</a> | <a href="https://www.theperfectsmile.co.uk/privacy-policy">Privacy Policy</a> |  <a href="https://dentalwealthbuilder.com/"> Dental Coaching| Tel: <a href="tel:01992552115">01992 552115</a> </a></p>
+    <p> <a href="https://www.dental.vanillacircus.co.uk/">Dental Marketing by VC |</a> </p>
+  </div>
+</footer>
+
+
+
+
+
+<!-- Menu toggle -->
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileNav = document.getElementById("mobileNav");
+
+  menuToggle.addEventListener("click", () => {
+    mobileNav.classList.toggle("active");
+  });
+
+  function toggleSubmenu(e, id) {
+    e.preventDefault();
+    const allSubmenus = document.querySelectorAll(".submenu");
+    allSubmenus.forEach(menu => {
+      if (menu.id !== id) menu.style.display = "none";
+    });
+
+    const submenu = document.getElementById(id);
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+<!-- Scroll behavior for top bar + header -->
+<script>
+  let lastScrollY = window.scrollY;
+  const topBar = document.querySelector('.top-bar');
+  const mainHeader = document.querySelector('.main-header');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY) {
+      topBar.classList.add('hidden');
+      mainHeader.style.top = '0';
+    } else {
+      topBar.classList.remove('hidden');
+      mainHeader.style.top = '70px';
+    }
+    lastScrollY = window.scrollY;
+  });
+</script>
+
+
+
+
+<script>
+  const menuClose = document.getElementById("menu-close");
+  menuClose.addEventListener("click", () => {
+    mobileNav.classList.remove("active");
+  });
+</script>
+
+
+
+<script>
+  function toggleTeamSubmenu(e) {
+    e.preventDefault();
+    const submenu = document.getElementById("teamSubmenu1");
+
+    // Close other submenus
+    document.querySelectorAll(".submenu1").forEach(menu => {
+      if (menu !== submenu) menu.style.display = "none";
+    });
+
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+<!-- Scroll to Top Button -->
+<button id="scrollTopBtn" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/441992552115" class="whatsapp-button" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<!-- jQuery and Owl Carousel JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('.logo-carousel').owlCarousel({
+    loop: true,
+    margin: 40,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    smartSpeed: 800,
+    dots: false,
+    nav: false,
+    responsive: {
+      0: {
+        items: 2
+      },
+      600: {
+        items: 3
+      },
+      768: {
+        items: 4
+      },
+      1024: {
+        items: 5
+      },
+      1300: {
+        items: 6
+      }
+    }
+  });
+});
+</script>
+
+
+<script>
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+  window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+
+
+</body>
+</html>
