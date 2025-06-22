@@ -686,7 +686,7 @@ color: rgba(178, 164, 142,1);
     .left-image {
       flex: 0.5;
       min-height: 400px;
-      background: url('../image/science-behind-smiling.jpg') no-repeat center center;
+      background: url('./image/science-behind-smiling.jpg') no-repeat center center;
       background-size: cover;
     }
 
